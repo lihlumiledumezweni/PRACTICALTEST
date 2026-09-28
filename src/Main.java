@@ -1,48 +1,44 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Select the beverage type");
+        System.out.println("1) PS5");
+        System.out.println("2) XBOX");
+        System.out.println("3) SWITCH");
+        System.out.print("");
 
-        String[] cities = {"CAPE TOWN", "PORT ELIZABETH", "PRETORIA"};
-        int[][] sales = {{1000, 2000, 3000},
-                {2000, 3000, 4000},
-                {1500, 1100, 1200}
-        };
+        int choice = scanner.nextInt();
+        scanner.nextLine();
 
-        System.out.println("GAMING CONSOLE REPORT");
-        System.out.println("------------------------------------------------------------");
-        System.out.printf("%-15s%-10s%-10s%10s%n", "", "PS5", "XBOX", "SWITCH");
-        System.out.println("------------------------------------------------------------");
-
-        for (int i = 0; i < cities.length; i++) {
-            System.out.printf("%-15s %-10d %-10d %-10d%n",
-                    cities[i],
-                    sales[i][0],
-                    sales[i][1],
-                    sales[i][2]);
+        String consoleType = "";
+        switch (choice) {
+            case 1:
+                consoleType = "PS5";
+                break;
+            case 2:
+                consoleType = "XBOX";
+                break;
+            case 3:
+                consoleType = "SWITCH";
+                break;
+            default:
+                consoleType = "PS5";
         }
-        System.out.println("------------------------------------------------------------");
-        System.out.println("CONSOLE SALES TOTALS FOR EACH CITY");
-        System.out.println("------------------------------------------------------------");
 
-        int maxSales = -1;
-        String topCity = "";
+        System.out.print("Enter the store: ");
+        String store = scanner.nextLine();
 
-        for (int i = 0; i < cities.length; i++) {
-            int cityTotal = 0;
-            for (int j = 0; j < sales.length; j++) {
-                cityTotal += sales[i][j];
-            }
+        System.out.print("Enter the total sales of " + consoleType + " consoles for " + store + ": ");
+        int totalSales = scanner.nextInt();
 
-            System.out.printf("%-15s %d%n",
-                    cities[i], cityTotal);
+        System.out.println();
 
-            if (cityTotal > maxSales) {
-                maxSales = cityTotal;
-                topCity = cities[i];
-            }
-        }
-        System.out.println("------------------------------------------------------------");
-        System.out.println("CITY WITH THE MOST SALES: " + topCity);
-        System.out.println("------------------------------------------------------------");
+        ConsoleSales report = new ConsoleSales(consoleType, store, totalSales);
+        report.printReport();
+
+        scanner.close();
     }
 }
